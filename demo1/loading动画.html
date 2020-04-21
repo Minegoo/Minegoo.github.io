@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    @keyframes move {
+        0% {
+            background-position: 100% 0%;
+        }
+        50% {
+            background-position: 0% 100%;
+        }
+        100% {
+            background-position: 100% 0%;
+        }
+    }
+
+    .wrapper {
+        animation: move 30s ease-in-out infinite;
+        width: 100%;
+        height: 800px;
+        position: fixed;
+        background: linear-gradient(150deg, #6fc7b5 0%, #13bdce 20%, #0094d9 40%, #5a3694 60%, #ee4d74 80%, #f58c58 100%);
+        background-size: 400%;
+    }
+
+    ul {
+        /* border: 1px solid #fff; */
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -200px;
+        margin-top: -50px;
+        font-weight: 700;
+        color: #fff;
+        font-size: 100px;
+    }
+
+    li {
+        list-style: none;
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        /* border:1px solid #fff; */
+    }
+
+    li::after {
+        content: '';
+        display: block;
+        width: 20px;
+        height: 20px;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+
+    li:nth-of-type(1) {
+        left: -329px;
+        top: -319px;
+    }
+
+    li:nth-of-type(1)::after {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+
+    }
+
+    li:nth-of-type(4)::after {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+
+    }
+
+    li:nth-of-type(2) {
+        left: 112px;
+        top: 22px;
+    }
+
+    li:nth-of-type(4) {
+        left: -155px;
+        top: -356px;
+    }
+
+    li:nth-of-type(3) {
+        left: 194px;
+        top: 0px;
+    }
+
+    /* li:nth-of-type(4){
+        left: 224px;
+        top: 25px;
+    } */
+    li:nth-of-type(5) {
+        left: 355px;
+        top: 22px;
+    }
+
+    .animation li:nth-of-type(1) {
+
+        animation: circletwo 2s linear;
+    }
+
+    .animation li:nth-of-type(1)::after {
+        animation: roll 2s linear;
+    }
+
+    .animation li:nth-of-type(2) {
+
+        animation: circle 2s linear 500ms;
+    }
+
+    .animation li:nth-of-type(2)::after {
+        animation: roll 2s linear 500ms;
+    }
+
+    .animation li:nth-of-type(3) {
+        animation: circletwo 2s linear 800ms;
+
+    }
+
+    .animation li:nth-of-type(3)::after {
+        animation: roll 2s linear 800ms;
+    }
+
+    .animation li:nth-of-type(4) {
+        animation: circletwo 2s linear 1s;
+
+    }
+
+    .animation li:nth-of-type(4)::after {
+        animation: roll 2s linear 1s;
+    }
+
+    .animation li:nth-of-type(5) {
+        animation: circle 2s linear 1.2s;
+
+    }
+
+    .animation li:nth-of-type(5)::after {
+        animation: roll 2s ease-in-out 1.2s;
+    }
+
+    @keyframes circle {
+        0% {
+
+            transform: rotate(0deg);
+        }
+        100% {
+
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes circletwo {
+        0% {
+
+            transform: rotate(0deg);
+        }
+        100% {
+
+            transform: rotate(-360deg);
+        }
+    }
+
+    @keyframes roll {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(5);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+        <ul>Hello World!
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script>
+        var ul = document.getElementsByTagName('ul')[0];
+        ul.setAttribute('class', 'animation');
+        var timer = setInterval(function () {
+            ul.removeAttribute('class');
+            setTimeout(function () {
+                ul.setAttribute('class', 'animation');
+            }, 200)
+
+        }, 4000)
+    </script>
+</body>
+
+</html>
