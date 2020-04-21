@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.wrapper{
+		width: 300px;
+		border: 1px solid #ccc;
+		margin: 200px auto 0;
+		padding: 5px;
+		border-radius: 15px;
+	}
+	.search{
+		width: 100%;
+		height: 60px;
+	/*	border-bottom: 1px solid red;
+*/	}
+    input{
+    	width: 50%;
+    	height: 31px;
+    	border: 1px solid #eee;
+    	border-radius: 5px;
+    	display: inline-block;
+    	outline: none;
+    	    }
+    .search ul li{
+        float: left; 
+        line-height: 18px;
+        margin: 0 2px; 
+        /*width: 30px;*/
+        height: 18px;  
+        border:1.5px solid orange;
+        border-radius: 5px;
+        padding: 6px;
+        font-size: 12px;
+        color:orange;
+        font-weight: bold;
+    
+        
+    }
+    .search ul li:hover{
+        border-color:#eee;
+    }
+    .search ul{
+    	float: right;
+
+    }
+    .search ul .active{
+    	background-color: orange;
+    	color:#fff;
+    }
+    .list li img{
+        width: 60px;
+        height: 60px;
+
+    }
+    .list li span{
+        font-size: 12px;
+        line-height: 60px;
+        vertical-align: top;
+        margin-left:15px;
+
+    }
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="search">
+		    <input type="text" placeholder="&nbsp;请输入关键词">
+            <ul class="sex">
+             	<li class="active" sex ="all">all</li>
+             	<li sex ="male">male</li>
+             	<li sex = "female">female</li>
+             </ul>
+		</div>
+		<div>
+		    <ul class="list">
+		    	
+		    </ul>
+		</div>
+	</div>
+<script>
+var countryoldman = [
+{img:'female.jpg',name:'王大娘',sex:'female',des:'一个慈祥和蔼的老奶奶'},
+{img:'male.jpg',name:'张大爷',sex:'male',des:'一个慈眉善目的老爷爷'},
+{img:'male.jpg',name:'李大爷',sex:'male',des:'一个家里有棵李树的大爷'},
+{img:'female.jpg',name:'孙大娘',sex:'female',des:'一个会做好吃饭食的老奶奶'},
+{img:'male.jpg',name:'王大爷',sex:'male',des:'一个插科打诨的大爷'}
+];
+
+function debounce (handle,delay) {
+    var timer;
+    return function(){
+        var self = this;
+        var arg = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(function(){
+            handle.apply(self,arg)
+        },delay)
+    }
+ }
+var store = createStore({text:'',sex:'all'})
+function createStore (initstate){
+    var state = initstate;
+    var list = [];
+    function getState (){
+        return state;
+    }
+    function dispatch (action){
+    state[action.type] = action.value;
+    list.forEach(function(ele,index){
+        ele();
+    });
+    }
+    function subScript (handle){
+    list.push(handle);
+    }
+ return {
+    getState:getState,
+    dispatch:dispatch,
+    subScript:subScript
+   }
+ }
+var ul = document.getElementsByClassName('list')[0];
+render(countryoldman);
+function render (list){
+	var str = '' ;
+	list.forEach(function(elem,index){
+        str += '<li>\
+                    <img src="' + elem.img +'" alt="">\
+		    	    <span class="name">'+ elem.name +'</span>\
+		    	    <span class="des">'+ elem.des +'</span>\
+		    	</li>';
+    })
+	ul.innerHTML = str;
+ }
+var input = document.getElementsByTagName('input')[0];
+input.oninput = debounce(function(){
+    console.log(this.value);
+    store.dispatch({type:'text',value:this.value});
+    // ori.text = this.value;
+    // render(addfn(select,countryoldman));
+ }
+,800)
+function filtertext(ftext,flist){
+	var farr = [];
+    farr = flist.filter(function(elem,index){
+    	if(elem.name.indexOf(ftext) !== -1){
+    		return true;
+    	}
+    })
+    return farr;
+ }
+var sex = document.getElementsByClassName('sex')[0];
+sex.addEventListener('click',function(e){
+ 	if(e.target.tagName == 'LI' ){
+        store.dispatch({type:'sex',value:e.target.getAttribute('sex')});
+ 		// ori.sex = e.target.getAttribute('sex');
+ 		document.getElementsByClassName('active')[0].className = '';
+ 		e.target.className = 'active';
+        // render(addfn(select,countryoldman));
+ 	}
+ }) 
+function filtersex(sex,list){
+ 	if(sex == 'all'){
+ 		return list;
+ 	}else {
+ 		return list.filter(function(elem,index){
+ 		if(elem.sex == sex){
+ 			return true;
+ 		}
+ 	    })
+    }
+ 	
+ }
+var select = {
+ 	text:filtertext,
+ 	sex:filtersex
+ }
+ // var ori = {
+ // 	text:'',
+ // 	sex:'all'
+ // }
+function addfn (obj,list){
+	var lastarr = list;
+	for(var prop in obj){
+		lastarr = obj[prop](store.getState()[prop],lastarr);
+	}
+	return lastarr;
+ }
+store.subScript(function(){
+    render(addfn(select,countryoldman));
+});
+</script>
+</body>
+</html>
