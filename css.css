@@ -16,10 +16,10 @@
 }
 
 .wrapper {
-    padding-top: 200px;
-    animation: move 30s ease-in-out infinite;
+    padding-top: 100px;
+    animation: move 15s ease-in-out infinite;
     width: 100%;
-    height: 3000px;
+    height: 1500px;
     /* position: fixed; */
     background: linear-gradient(150deg, #6fc7b5 0%, #13bdce, 20%, #0094d9 40%, #5a3694 60%, #ee4d74 80%, #f58c58 100%);
     background-size: 1000%;
@@ -47,7 +47,7 @@ ul {
     /* border: 1px solid #fff; */
     position: absolute;
     left: 50%;
-    top: 60%;
+    top: 50%;
     transform: translate(-50%,-50%);
     /* margin-top: -50px; */
     font-weight: 700;
@@ -200,3 +200,96 @@ li:nth-of-type(5) {
         transform: scale(1);
     }
 }
+
+/* 旋转盒子 */
+.box {
+
+    transform-style: preserve-3d;
+    width: 120px;
+    height: 180px;
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    margin-left: -60px;
+    margin-top: -90px;
+    transform: rotateX(-12deg);
+
+}
+h1{
+    /* margin:; */
+    padding: 130px 200px 50px ;
+    color: white;
+    size: 400px;
+}
+
+.box img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-box-reflect: below 10px -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.5) 100%);
+}
+/* round */
+.round{
+    position: relative;
+    top: 700px;
+    width: 200px;
+    height: 200px;
+    /* border:1px solid black; */
+    margin: 0 auto;
+    
+    transform-style: preserve-3d;
+
+    animation: turn 5s linear infinite;
+}
+.item{
+
+    color:#fff;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 200px;
+    line-height: 200px;
+    font-size: 50px;
+    text-align: center;
+    opacity: 0.8;
+
+
+}
+@keyframes turn {
+            0%{
+                transform: rotateX(0) rotateY(0) rotateZ(0);
+            }
+            100%{
+                transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+            }
+        }
+.a1{background-color: orange;
+    transform: translateZ(100px);
+    
+}
+.a2{background-color: pink;
+    transform: rotateY(90deg) translateZ(100px);
+
+}
+.a3{background-color: purple;
+
+    transform: rotateY(180deg) translateZ(100px);
+}
+.a4{background-color: green;
+
+    transform: rotateY(-90deg) translateZ(100px);
+}
+.a5{background-color: grey;
+    transform: rotateX(90deg) translateZ(100px);
+
+}
+.a6{background-color: blue;
+    transform: rotateX(-90deg) translateZ(100px);
+}
+/* @keyframes move0{
+    0%{transform: rotateX(-20deg) rotateY(0deg);
+}
+    100%{transform: rotateX(-20deg) rotateY(360deg);
+} */
+/* } */
