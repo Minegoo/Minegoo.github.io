@@ -202,7 +202,7 @@ li:nth-of-type(5) {
 }
 
 /* 旋转盒子 */
-.box {
+.wrapper .box {
 
     transform-style: preserve-3d;
     width: 120px;
